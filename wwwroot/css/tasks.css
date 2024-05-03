@@ -1,0 +1,35 @@
+.status-option {
+  width: 100%;
+  height: auto;
+}
+
+.status-option input {
+  position: absolute;
+  left: -9999px;
+}
+
+.status-option label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: inherit;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.status-option input:checked ~ label {
+  background-color: #414181;
+  color: white;
+}
+
+.status-option label:hover {
+  background-color: #d6d6e5;
+}
+
+.status-option i {
+  display: flex;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  font-size: 25px;
+}
