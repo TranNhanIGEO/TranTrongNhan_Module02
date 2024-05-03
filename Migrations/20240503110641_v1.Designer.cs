@@ -12,7 +12,7 @@ using TranTrongNhan.Models.Entities;
 namespace TranTrongNhan.Migrations
 {
     [DbContext(typeof(TasksContext))]
-    [Migration("20240503044933_v1")]
+    [Migration("20240503110641_v1")]
     partial class v1
     {
         /// <inheritdoc />
