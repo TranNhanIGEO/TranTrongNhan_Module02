@@ -33,3 +33,12 @@
   height: 20px;
   font-size: 25px;
 }
+
+.status-option p {
+  margin: 0;
+  padding: 0;
+}
+
+.status-option span {
+  margin-left: auto;
+}
