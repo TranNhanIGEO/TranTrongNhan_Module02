@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TranTrongNhan.Models.Entities;
+using TranTrongNhan.Models;
 
 #nullable disable
 
@@ -22,7 +22,7 @@ namespace TranTrongNhan.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TranTrongNhan.Models.Entities.Tasks", b =>
+            modelBuilder.Entity("TranTrongNhan.Models.Tasks", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

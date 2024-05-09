@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using TranTrongNhan.Models;
-using TranTrongNhan.Models.Entities;
 using System.Diagnostics;
 
 namespace TranTrongNhan.Controllers

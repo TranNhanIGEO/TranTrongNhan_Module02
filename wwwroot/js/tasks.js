@@ -2,8 +2,9 @@ $(document).ready(() => {
     RenderTaskList();
 })
 
-$('input[name="taskType"]').click((e) => {
-    console.log(e.target.checked)
+$('input[name="statusType"]').change((e) => {
+    var status = e.target.value;
+    RenderTaskList(status);
 })
 
 $('#addTask').click(function () {
@@ -27,7 +28,8 @@ $('#addTask').click(function () {
             },
             success: function (data) {
                 $('#editModal').modal('hide');
-                RenderTaskList();
+                var status = $('input[name="statusType"]:checked').val();
+                RenderTaskList(status);
 
             },
             error: function () {
@@ -47,7 +49,8 @@ $('#addTask').click(function () {
             },
             success: function (data) {
                 $('#editModal').modal('hide');
-                RenderTaskList();
+                var status = $('input[name="statusType"]:checked').val();
+                RenderTaskList(status);
 
             },
             error: function () {
@@ -57,14 +60,14 @@ $('#addTask').click(function () {
     }
 })
 
-function RenderTaskList() {
+function RenderTaskList(status = "all") {
     $('#taskList').empty();
     $.ajax({
-        url: '/Tasks/GetTasks',
+        url: '/Tasks/GetTasks?status=' + status,
         type: 'GET',
         success: function (data) {
             console.log("DATA RESULT:", data)
-            var status = {
+            var statusObj = {
                 unfinished: {
                     class: "text-danger",
                     text: "Chưa hoàn thành",
@@ -78,14 +81,26 @@ function RenderTaskList() {
                     text: "Hoàn thành",
                 },
             }
-            data.map((item, index) => {
+            if (!data.length) {
+                $('#taskList').append(`
+                <tr>
+                    <td colspan="7" class="text-center">No data</td>
+                </tr>`)
+                return;
+            }
+            data
+                .filter(item => {
+                    if (status === "all") return true;
+                    return item.status === status
+                })
+                .map((item, index) => {
                 $('#taskList').append(`
                 <tr>
                     <td class="align-middle text-center">${index + 1}</td>
                     <td class="align-middle">${item.name}</td>
                     <td class="align-middle text-center">${item.priority}</td>
                     <td class="align-middle text-center">${item.note}</td>
-                    <td class="align-middle text-center ${status[item.status]?.class}">${status[item.status]?.text}</td>
+                    <td class="align-middle text-center ${statusObj[item.status]?.class}">${statusObj[item.status]?.text}</td>
                     <td class="text-center"><a class="btn btn-primary" href="javascript:EditTask('${item.id}')"><i class='bx bx-edit'></i></a></td>
                     <td class="text-center"><a class="btn btn-danger" href="javascript:DeleteTask('${item.id}')"><i class='bx bx-trash-alt'></i></a></td>
                 </tr>`)
@@ -108,6 +123,8 @@ function EditTask(id) {
             $('#editModalLabel').html('Chỉnh sửa nhiệm vụ');
             $('#addTask').html('Cập nhật');
             $('#editModal').modal('show');
+            var status = $('input[name="statusType"]:checked').val();
+            RenderTaskList(status);
         },
         error: function () {
             alert('Sua that bai');
@@ -128,3 +145,15 @@ function DeleteTask(id) {
         }
     });
 }
+
+//lắng nghe sự kiện đóng modal
+$('#editModal').on('hidden.bs.modal', function (e) {
+    $('#taskId').val('');
+    $('#taskName').val('');
+    $('#taskPriority').val('');
+    //chọn option đầu tiên trong select
+    $('#taskStatus').prop('selectedIndex', 0);
+    $('#taskNote').val('');
+    $('#editModalLabel').html('Thêm nhiệm vụ');
+    $('#addTask').html('Thêm mới');
+})

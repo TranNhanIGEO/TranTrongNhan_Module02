@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using TranTrongNhan.Models;
-using TranTrongNhan.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace TranTrongNhan.Controllers
@@ -20,12 +19,20 @@ namespace TranTrongNhan.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTasks()
+        public async Task<IActionResult> GetTasks(string? status)
         {
             try
             {
-                var data = await _dbContext.tasks.ToListAsync();
-                return Ok(data);
+                var data = from t in _dbContext.tasks
+                           select t;
+                List<Tasks> _tasks;
+                if (status == "all") {
+                    _tasks = await data.ToListAsync();
+                }
+                else {
+                    _tasks = await data.Where(t => t.Status == status).ToListAsync();
+                }
+                return Ok(_tasks);
             }
             catch
             {

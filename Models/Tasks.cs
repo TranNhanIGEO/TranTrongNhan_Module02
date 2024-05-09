@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TranTrongNhan.Models.Entities
+namespace TranTrongNhan.Models
 {
     [Table("Tasks")]
     public class Tasks

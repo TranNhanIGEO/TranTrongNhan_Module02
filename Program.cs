@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using TranTrongNhan.Models.Entities;
+using TranTrongNhan.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

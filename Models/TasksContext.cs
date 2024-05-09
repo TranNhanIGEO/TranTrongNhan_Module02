@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace TranTrongNhan.Models.Entities
+namespace TranTrongNhan.Models
 {
     public class TasksContext : DbContext
     {

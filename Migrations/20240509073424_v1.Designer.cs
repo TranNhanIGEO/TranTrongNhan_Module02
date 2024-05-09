@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TranTrongNhan.Models.Entities;
+using TranTrongNhan.Models;
 
 #nullable disable
 
 namespace TranTrongNhan.Migrations
 {
     [DbContext(typeof(TasksContext))]
-    [Migration("20240503044933_v1")]
+    [Migration("20240509073424_v1")]
     partial class v1
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace TranTrongNhan.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TranTrongNhan.Models.Entities.Tasks", b =>
+            modelBuilder.Entity("TranTrongNhan.Models.Tasks", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
